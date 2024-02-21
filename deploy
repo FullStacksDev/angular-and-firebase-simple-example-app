@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -eu -o pipefail
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+current_branch=$(git branch --show-current)
+current_hash=$(git rev-parse --short HEAD)
+
+echo
+printf "%sThis will deploy the current code on this machine (branch: %s, hash: %s) to the live environment on Firebase%s" "$bold" "$current_branch" "$current_hash" "$normal"
+echo
+read -r -p "Continue? [y/N] " -n 1
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+  echo
+
+  # Ensure the app deploy folder exists in the firebase folder
+  mkdir -p firebase/dist
+
+  # Clean out an existing build
+  rm -rf firebase/dist/app
+
+  # Build the production app and copy the output to the deploy folder
+  cd app
+  pnpm build
+  cp -r dist/app/browser/. ../firebase/dist/app
+
+  # Deploy to the live environment
+  cd ..
+  cd firebase
+  pnpm deploy:live
+fi
