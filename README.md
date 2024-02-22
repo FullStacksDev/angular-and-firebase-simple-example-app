@@ -1,3 +1,5 @@
-# The [FullStacksDev](https://FullStacks.dev) Angular and Firebase simple example app
+# [FullStacksDev](https://FullStacks.dev) Angular and Firebase simple example progressive web app (PWA)
 
-**Basic logbook app** — keep a log of entries.
+Part of the curated **[FullStacksDev](https://FullStacks.dev) Angular and Firebase tech stack**. For solo devs and very small teams.
+
+**Logbook app** — keep a log of entries.

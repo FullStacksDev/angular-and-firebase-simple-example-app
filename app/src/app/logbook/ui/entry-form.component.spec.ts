@@ -1,20 +1,21 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MockBuilder, MockRender, ngMocks } from 'ng-mocks';
-import { LoginFormComponent } from './login-form.component';
+import { EntryFormComponent } from './entry-form.component';
 
 @Component({
   standalone: true,
-  imports: [LoginFormComponent],
-  template: `<app-login-form [processing]="processing" />`,
+  imports: [EntryFormComponent],
+  template: `<app-entry-form [processing]="processing" [categories]="categories" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestComponent {
   @Input() processing = false;
+  @Input() categories = [] as string[];
 }
 
-describe('LoginFormComponent', () => {
+describe('EntryFormComponent', () => {
   beforeEach(() =>
-    MockBuilder(TestComponent, null).keep(LoginFormComponent, {
+    MockBuilder(TestComponent, null).keep(EntryFormComponent, {
       shallow: true,
     }),
   );
@@ -30,13 +31,6 @@ describe('LoginFormComponent', () => {
     MockRender(TestComponent);
 
     const el = ngMocks.find('form');
-    expect(el).toBeTruthy();
-  });
-
-  it('renders the progress bar when processing', () => {
-    MockRender(TestComponent, { processing: true });
-
-    const el = ngMocks.find('mat-progress-bar');
     expect(el).toBeTruthy();
   });
 });
