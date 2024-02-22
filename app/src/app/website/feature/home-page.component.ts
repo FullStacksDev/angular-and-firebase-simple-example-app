@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   template: `
     <h1 class="mat-headline-5 mt-8 text-center leading-normal">
-      This is the FullStacks.dev Angular and Firebase template running on Firebase
+      This is the FullStacks.dev Angular and Firebase simple example app running on Firebase
     </h1>
   `,
   styles: ``,
