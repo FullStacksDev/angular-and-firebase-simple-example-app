@@ -6,7 +6,7 @@ import { EntriesUpdateStore } from './entries-update.store';
 describe('EntriesUpdateStore', () => {
   MockInstance.scope();
 
-  beforeEach(() => MockBuilder(EntriesUpdateStore).mock(AuthStore).mock(EntriesService));
+  beforeEach(() => MockBuilder(EntriesUpdateStore, null).mock(AuthStore).mock(EntriesService));
 
   it('should create', () => {
     const store = ngMocks.get(EntriesUpdateStore);

@@ -17,7 +17,7 @@
     },
     {
       "collectionGroup": "entries",
-      "fieldPath": "content",
+      "fieldPath": "text",
       "indexes": []
     }
   ]
