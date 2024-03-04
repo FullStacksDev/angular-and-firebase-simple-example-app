@@ -4,6 +4,8 @@ export const environment = {
   firebaseConfig: {
     apiKey: 'AIzaSyDnhop-bbzHlvXK93T3kXQ-zpSWYjKQjmw',
     authDomain: 'angular-and-firebase-simple.firebaseapp.com',
+    databaseURL:
+      'https://angular-and-firebase-simple-default-rtdb.europe-west1.firebasedatabase.app',
     projectId: 'angular-and-firebase-simple',
     storageBucket: 'angular-and-firebase-simple.appspot.com',
     messagingSenderId: '552573691858',

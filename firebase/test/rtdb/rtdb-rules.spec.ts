@@ -1,6 +1,7 @@
 import {
   RulesTestEnvironment,
   assertFails,
+  assertSucceeds,
   initializeTestEnvironment,
 } from '@firebase/rules-unit-testing';
 import { get, ref, remove, set } from 'firebase/database';
@@ -65,6 +66,17 @@ describe('RTDB security rules', () => {
     const valueRef = ref(db, 'unusedKey');
 
     await assertFails(get(valueRef));
+
+    await assertFails(set(valueRef, 'foo'));
+
+    await assertFails(remove(valueRef));
+  });
+
+  test("allows reads but not writes and deletes to the 'config' key by anyone", async () => {
+    const db = testEnv.unauthenticatedContext().database();
+    const valueRef = ref(db, 'config');
+
+    await assertSucceeds(get(valueRef));
 
     await assertFails(set(valueRef, 'foo'));
 

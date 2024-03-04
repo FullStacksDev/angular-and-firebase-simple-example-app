@@ -18,6 +18,9 @@ import { AuthStatusComponent } from './ui/auth-status.component';
             <li>
               <a mat-button [routerLink]="['/about']">About</a>
             </li>
+            <li>
+              <a mat-button color="primary" [routerLink]="['/logbook']">Open logbook</a>
+            </li>
           </ul>
 
           <ul class="flex space-x-4">
