@@ -78,16 +78,16 @@ export class EntryFormComponent implements OnInit {
   readonly categories = input.required<string[]>();
   readonly existingEntry = input<EntryDoc>();
 
+  @Output() submitted = new EventEmitter<NewOrUpdatedEntryInput>();
+  @Output() canceled = new EventEmitter<void>();
+
+  readonly titleInput = viewChild.required<ElementRef>('titleInput');
+
   readonly formGroup = this.#fb.nonNullable.group({
     title: ['', [Validators.required]],
     text: ['', [Validators.required]],
     category: [null as string | null],
   });
-
-  @Output() submitted = new EventEmitter<NewOrUpdatedEntryInput>();
-  @Output() canceled = new EventEmitter<void>();
-
-  readonly titleInput = viewChild.required<ElementRef>('titleInput');
 
   constructor() {
     // Keep the form in sync with the existing entry
