@@ -45,6 +45,7 @@ import { EntryFormComponent } from '../ui/entry-form.component';
               <input
                 matInput
                 (click)="toggleExpanded()"
+                (focus)="toggleExpanded()"
                 class="w-full"
                 placeholder="Click here and start typing..."
               />
