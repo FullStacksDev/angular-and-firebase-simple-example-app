@@ -1,15 +1,3 @@
-type EntriesUpdateState = {
-  processing: boolean;
-  error: string | null;
-};
-
-const initialState: EntriesUpdateState = {
-  processing: false,
-  error: null,
-};
-
-const logger = createLogger('EntriesUpdateStore');
-
 import { Injectable, effect, inject } from '@angular/core';
 import { AuthStore } from '@app-shared/auth/data/auth.store';
 import { createLogger } from '@app-shared/logger';
@@ -26,6 +14,18 @@ import {
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { EMPTY, concatMap, pipe, tap } from 'rxjs';
 import { EntriesService } from './db/entries.service';
+
+type EntriesUpdateState = {
+  processing: boolean;
+  error: string | null;
+};
+
+const initialState: EntriesUpdateState = {
+  processing: false,
+  error: null,
+};
+
+const logger = createLogger('EntriesUpdateStore');
 
 const _EntriesUpdateStore = signalStore(
   withState(initialState),
