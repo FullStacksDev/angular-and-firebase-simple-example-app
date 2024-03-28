@@ -56,16 +56,16 @@ export class EntriesService {
     pageCursor: PageCursor,
     filters: EntriesFilters,
   ): Observable<EntryDoc[]> {
-    logger.debug('#getEntries inputs:', { userId, pageSize, pageCursor, filters });
+    logger.debug('#getEntryDocs$ - inputs:', { userId, pageSize, pageCursor, filters });
 
     const q = this.#buildQuery(userId, pageSize, pageCursor, filters);
     return collectionData$(q).pipe(
-      tap((entries) => logger.debug('#getEntries entries from Firestore:', entries)),
+      tap((entries) => logger.debug('#getEntryDocs$ - entries from Firestore:', entries)),
     );
   }
 
   createEntryDoc$(userId: string, data: NewOrUpdatedEntryInput): Observable<string> {
-    logger.debug('#addEntry inputs:', { userId, data });
+    logger.debug('#createEntryDoc$ - inputs:', { userId, data });
 
     const docData = {
       ...data,
@@ -79,7 +79,7 @@ export class EntriesService {
   }
 
   updateEntryDoc$(entryId: string, data: NewOrUpdatedEntryInput): Observable<void> {
-    logger.debug('#updateEntry inputs:', { entryId, data });
+    logger.debug('#updateEntryDoc$ - inputs:', { entryId, data });
 
     const docRef = doc(this.#collectionRef, entryId);
     const promise = updateDoc(docRef, data);
@@ -87,7 +87,7 @@ export class EntriesService {
   }
 
   deleteEntryDoc$(entryId: string): Observable<void> {
-    logger.debug('#deleteEntry entryId:', entryId);
+    logger.debug('#deleteEntryDoc$ - entryId:', entryId);
 
     const docRef = doc(this.#collectionRef, entryId);
     const promise = deleteDoc(docRef);

@@ -16,7 +16,7 @@ export class ConfigService {
   getConfig$(): Observable<Config> {
     const objectRef = ref(this.#rtdb, 'config');
     return object$(objectRef).pipe(
-      tap((change) => logger.debug('#getConfig config change snapshot from RTDB:', change)),
+      tap((change) => logger.debug('#getConfig$ - config change snapshot from RTDB:', change)),
       map((change) => {
         const data = change.snapshot.val();
 
