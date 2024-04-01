@@ -7,7 +7,7 @@ import { ConfigService } from './db/config.service';
 describe('ConfigStore', () => {
   MockInstance.scope();
 
-  beforeEach(() => MockBuilder(ConfigStore).mock(ConfigService));
+  beforeEach(() => MockBuilder(ConfigStore, null).mock(ConfigService));
 
   it('should create', () => {
     const mockConfig: Config = { categories: ['test'] };

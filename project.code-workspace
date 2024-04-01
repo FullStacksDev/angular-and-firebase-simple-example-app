@@ -4,6 +4,9 @@
       "path": ".github"
     },
     {
+      "path": "docs"
+    },
+    {
       "path": "app"
     },
     {
@@ -40,6 +43,7 @@
   "extensions": {
     "recommendations": [
       "angular.ng-template",
+      "davidanson.vscode-markdownlint",
       "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode",
       "johnpapa.angular-essentials",
