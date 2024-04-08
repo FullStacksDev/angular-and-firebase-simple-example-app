@@ -12,7 +12,8 @@ service cloud.firestore {
 
     match /entries/{document=**} {
       allow read: if matchesAuthedUser(resource.data.userId);
-      allow create, update: if matchesAuthedUser(request.resource.data.userId);
+      allow create: if matchesAuthedUser(request.resource.data.userId);
+      allow update: if matchesAuthedUser(request.resource.data.userId) && matchesAuthedUser(resource.data.userId);
       allow delete: if matchesAuthedUser(resource.data.userId);
     }
   }
