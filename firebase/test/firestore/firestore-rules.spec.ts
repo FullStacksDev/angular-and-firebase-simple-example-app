@@ -154,16 +154,13 @@ describe('Firestore security rules', () => {
     await assertFails(updateDoc(bobAccessingAliceEntryRef, { content: 'Hello world updated' }));
     await assertSucceeds(updateDoc(bobAccessingBobEntryRef, { content: 'Hello world updated' }));
 
+    // Ensure the userId can't be changed inappropriately
+    await assertFails(updateDoc(bobAccessingAliceEntryRef, { userId: 'bob' }));
+    await assertFails(updateDoc(bobAccessingBobEntryRef, { userId: 'alice' }));
+
     // Deletes
     await assertSucceeds(deleteDoc(aliceAccessingAliceEntryRef));
     await assertFails(deleteDoc(bobAccessingAliceEntryRef));
     await assertSucceeds(deleteDoc(bobAccessingBobEntryRef));
-  });
-
-  test('does not allow changing the userId on an existing entry', async () => {
-    const db = testEnv.authenticatedContext('alice').firestore();
-    const entryRef = doc(db, 'entries', '1234');
-
-    await assertFails(setDoc(entryRef, { userId: 'bob' }, { merge: true }));
   });
 });
