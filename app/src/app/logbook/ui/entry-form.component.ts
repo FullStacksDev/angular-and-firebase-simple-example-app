@@ -2,12 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
   OnInit,
-  Output,
   effect,
   inject,
   input,
+  output,
   untracked,
   viewChild,
 } from '@angular/core';
@@ -78,8 +77,9 @@ export class EntryFormComponent implements OnInit {
   readonly categories = input.required<string[]>();
   readonly existingEntry = input<EntryDoc>();
 
-  @Output() submitted = new EventEmitter<NewOrUpdatedEntryInput>();
-  @Output() canceled = new EventEmitter<void>();
+  readonly submitted = output<NewOrUpdatedEntryInput>();
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  readonly canceled = output<void>();
 
   readonly titleInput = viewChild.required<ElementRef>('titleInput');
 
