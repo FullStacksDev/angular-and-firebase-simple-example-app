@@ -2,7 +2,7 @@
 
 Part of the curated [**FullStacksDev Angular and Firebase tech stack**](https://FullStacks.dev/TODO). For solo devs and very small teams.
 
-This is a fairly simple **Logbook app** — to keep a single time-ordered log of text entries — focused on showcasing and learning the tech stack, built using the [base template](https://github.com/FullStacksDev/angular-and-firebase-template).
+This is a fairly simple **Logbook app** — to keep a single time-ordered log of text entries — focused on showcasing and learning the tech stack, built from the [base template](https://github.com/FullStacksDev/angular-and-firebase-template).
 
 You can read more about [the purpose and specs of the example apps](TODO) on our website.
 
