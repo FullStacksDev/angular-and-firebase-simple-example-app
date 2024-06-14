@@ -1,10 +1,10 @@
-# The [FullStacksDev](https://FullStacks.dev) Angular and Firebase simple example app
+# The [FullStacksDev](https://fullstacks.dev) Angular and Firebase simple example app
 
-Part of the curated [**FullStacksDev Angular and Firebase tech stack**](https://FullStacks.dev/TODO). For solo devs and very small teams.
+Part of the curated [**FullStacksDev Angular and Firebase tech stack**](https://fullstacks.dev/#angular-and-firebase). For solo devs and very small teams.
 
 This is a fairly simple **Logbook app** — to keep a single time-ordered log of text entries — focused on showcasing and learning the tech stack, built from the [base template](https://github.com/FullStacksDev/angular-and-firebase-template).
 
-You can read more about [the purpose and specs of the example apps](TODO) on our website.
+You can read more about the [purpose and specs of the example apps](https://fullstacks.dev/example-apps) on our website.
 
 ## Running the app locally
 
@@ -71,4 +71,4 @@ To make the information skimmable and easier to understand, you'll see the follo
 
 ## A note about the advanced example app
 
-Throughout the docs we reference [the advanced example app](TODO). This is a more complex version of a logbook app that showcases advanced features and patterns. It's a perfect next step to take after you've understood and learnt from this simple example app.
+Throughout the docs we reference [the advanced example app](https://github.com/FullStacksDev/angular-and-firebase-advanced-example-app). This is a more complex version of a logbook app that showcases advanced features and patterns. It's a perfect next step to take after you've understood and learnt from this simple example app.
