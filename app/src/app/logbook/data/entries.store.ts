@@ -169,7 +169,7 @@ const _EntriesStore = signalStore(
     return {
       manageStream: rxMethod<'connect' | 'disconnect'>(
         pipe(
-          tap((action) => logger.log(`#manageStream - action = ${action}`)),
+          tap((action) => logger.log(`manageStream - action = ${action}`)),
           tap((action) => (action === 'connect' ? setConnecting() : null)),
           switchMap((action) => {
             if (action === 'connect') {
@@ -198,11 +198,13 @@ const _EntriesStore = signalStore(
         const hasPreviousPage = store.hasPreviousPage();
         if (currentPage && hasPreviousPage) {
           const entries = store.entities();
-          const lastTimestamp = entries[entries.length - 1].timestamp;
-          patchState(store, {
-            currentPage: currentPage - 1,
-            pageCursor: { startAt: null, endAt: lastTimestamp },
-          });
+          const lastEntry = entries[entries.length - 1];
+          if (lastEntry) {
+            patchState(store, {
+              currentPage: currentPage - 1,
+              pageCursor: { startAt: null, endAt: lastEntry.timestamp },
+            });
+          }
         }
       },
       nextPage(): void {
@@ -210,11 +212,13 @@ const _EntriesStore = signalStore(
         const hasNextPage = store.hasNextPage();
         if (currentPage && hasNextPage) {
           const entries = store.entities();
-          const lastTimestamp = entries[entries.length - 1].timestamp;
-          patchState(store, {
-            currentPage: currentPage + 1,
-            pageCursor: { startAt: lastTimestamp, endAt: null },
-          });
+          const lastEntry = entries[entries.length - 1];
+          if (lastEntry) {
+            patchState(store, {
+              currentPage: currentPage + 1,
+              pageCursor: { startAt: lastEntry.timestamp, endAt: null },
+            });
+          }
         }
       },
       setCategoryFilter(category: string | null | undefined): void {

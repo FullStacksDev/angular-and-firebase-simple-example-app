@@ -42,7 +42,7 @@ const logger = createLogger('LogbookPageComponent');
       @if (processing()) {
         <mat-progress-bar mode="indeterminate" />
       }
-      <h1 class="mb-0 py-4 text-center">My logbook</h1>
+      <h1 class="mat-headline-medium mt-4 py-2 text-center">My logbook</h1>
       <main class="flex h-full flex-col items-center px-4 py-0">
         @if (status() === 'error') {
           <div class="flex items-center justify-center px-3 py-8">
@@ -57,9 +57,9 @@ const logger = createLogger('LogbookPageComponent');
 
             @if (!onboarding()) {
               <section class="py-6">
-                <h2 class="mb-3 text-center">Entries</h2>
+                <h2 class="mat-title-large my-4 text-center">Entries</h2>
 
-                <div class="just-center mb-3 flex w-full flex-col items-center space-y-2">
+                <div class="mb-3 mt-5 flex w-full flex-col items-center space-y-4">
                   <mat-form-field class="w-fit">
                     <mat-label>Filter by category</mat-label>
                     <mat-select
@@ -103,7 +103,7 @@ const logger = createLogger('LogbookPageComponent');
                     <app-entry-item [entry]="entry" />
                   </div>
                 } @empty {
-                  <p class="py-3 text-center text-base italic">No entries found</p>
+                  <p class="mt-6 py-3 text-center text-base italic">No entries found</p>
                 }
               </section>
             }
@@ -184,8 +184,8 @@ export class LogbookPageComponent {
     this.#entriesStore.nextPage();
   }
 
-  onCategoryFilterChange(category: string | null | undefined) {
-    logger.log('#onCategoryFilterChange - category:', category);
-    this.#router.navigate([], { queryParams: { category } });
+  async onCategoryFilterChange(category: string | null | undefined) {
+    logger.log('onCategoryFilterChange - category:', category);
+    await this.#router.navigate([], { queryParams: { category } });
   }
 }

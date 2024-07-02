@@ -49,7 +49,7 @@ const _EntriesUpdateStore = signalStore(
     return {
       create: rxMethod<{ data: NewOrUpdatedEntryInput }>(
         pipe(
-          tap((params) => logger.log(`#create - data = ${params.data}`)),
+          tap((params) => logger.log('create - inputs:', params)),
           tap(() => setProcessing(true)),
           concatMap(({ data }) => {
             const user = authStore.user();
@@ -63,7 +63,7 @@ const _EntriesUpdateStore = signalStore(
           tapResponse({
             next: () => setProcessing(false),
             error: (error) => {
-              logger.error('#create - error:', error);
+              logger.error('create - error:', error);
               setError(
                 'Something went wrong when creating a new log entry. Please try again later.',
               );
@@ -73,9 +73,7 @@ const _EntriesUpdateStore = signalStore(
       ),
       update: rxMethod<{ entryId: string; data: NewOrUpdatedEntryInput }>(
         pipe(
-          tap((params) =>
-            logger.log(`#update - entryId = ${params.entryId}, data = ${params.data}`),
-          ),
+          tap((params) => logger.log('update - inputs:', params)),
           tap(() => setProcessing(true)),
           concatMap(({ entryId, data }) => {
             const user = authStore.user();
@@ -89,7 +87,7 @@ const _EntriesUpdateStore = signalStore(
           tapResponse({
             next: () => setProcessing(false),
             error: (error) => {
-              logger.error('#update - error:', error);
+              logger.error('update - error:', error);
               setError('Something went wrong when updating a log entry. Please try again later.');
             },
           }),
@@ -97,7 +95,7 @@ const _EntriesUpdateStore = signalStore(
       ),
       delete: rxMethod<string>(
         pipe(
-          tap((entryId) => logger.log(`#delete - entryId = ${entryId}`)),
+          tap((entryId) => logger.log(`delete - entryId = ${entryId}`)),
           tap(() => setProcessing(true)),
           concatMap((entryId) => {
             const user = authStore.user();
@@ -111,7 +109,7 @@ const _EntriesUpdateStore = signalStore(
           tapResponse({
             next: () => setProcessing(false),
             error: (error) => {
-              logger.error('#delete - error:', error);
+              logger.error('delete - error:', error);
               setError('Something went wrong when deleting a log entry. Please try again later.');
             },
           }),

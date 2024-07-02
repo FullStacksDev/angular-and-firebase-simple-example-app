@@ -97,7 +97,7 @@ const _ConfigStore = signalStore(
     return {
       manageStream: rxMethod<'connect' | 'disconnect'>(
         pipe(
-          tap((action) => logger.log(`#manageStream - action = ${action}`)),
+          tap((action) => logger.log(`manageStream - action = ${action}`)),
           tap((action) => (action === 'connect' ? setConnecting() : null)),
           switchMap((action) => {
             if (action === 'connect') {

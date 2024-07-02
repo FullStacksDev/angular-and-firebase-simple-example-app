@@ -60,10 +60,8 @@ const logger = createLogger('EntryFormComponent');
       </mat-form-field>
 
       <div class="mt-4 flex w-full flex-row-reverse items-center justify-between">
-        <button type="submit" mat-flat-button color="primary" [disabled]="processing()">
-          Save
-        </button>
-        <button type="button" mat-flat-button (click)="cancel()">Cancel</button>
+        <button type="submit" mat-flat-button [disabled]="processing()">Save</button>
+        <button type="button" mat-button (click)="cancel()">Cancel</button>
       </div>
     </form>
   `,
@@ -78,10 +76,9 @@ export class EntryFormComponent implements OnInit {
   readonly existingEntry = input<EntryDoc>();
 
   readonly submitted = output<NewOrUpdatedEntryInput>();
-  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-  readonly canceled = output<void>();
+  readonly canceled = output();
 
-  readonly titleInput = viewChild.required<ElementRef>('titleInput');
+  readonly titleInput = viewChild.required<ElementRef<HTMLInputElement>>('titleInput');
 
   readonly formGroup = this.#fb.nonNullable.group({
     title: ['', [Validators.required]],
@@ -102,18 +99,18 @@ export class EntryFormComponent implements OnInit {
   }
 
   submit(form: FormGroupDirective) {
-    logger.log(`#submit - form.valid = ${form.valid}, form data =`, this.formGroup.value);
+    logger.log(`submit - form.valid = ${form.valid}, form data =`, this.formGroup.value);
 
     if (form.valid) {
       const { title, text, category } = this.formGroup.value;
       if (title && text) {
-        this.submitted.emit({ title, text, category: category || null });
+        this.submitted.emit({ title, text, category: category ?? null });
       }
     }
   }
 
   cancel() {
-    logger.log('#cancel');
+    logger.log('cancel');
 
     this.#syncEntryWithForm(this.existingEntry());
     this.canceled.emit();
