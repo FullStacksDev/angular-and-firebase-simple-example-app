@@ -10,7 +10,7 @@ import { AuthStatusComponent } from './ui/auth-status.component';
   template: `
     <div class="container mx-auto px-4">
       <header>
-        <nav class="flex justify-between border-b py-2 ">
+        <nav class="flex justify-between border-b py-2">
           <ul class="flex space-x-4">
             <li>
               <a mat-button [routerLink]="['/']">Home</a>
@@ -19,7 +19,7 @@ import { AuthStatusComponent } from './ui/auth-status.component';
               <a mat-button [routerLink]="['/about']">About</a>
             </li>
             <li>
-              <a mat-button color="primary" [routerLink]="['/logbook']">Open logbook</a>
+              <a mat-flat-button [routerLink]="['/logbook']">Open logbook</a>
             </li>
           </ul>
 

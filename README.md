@@ -6,6 +6,10 @@ This is a fairly simple **Logbook app** — to keep a single time-ordered log of
 
 You can read more about the [purpose and specs of the example apps](https://fullstacks.dev/example-apps) on our website.
 
+> [!IMPORTANT]
+>
+> This is currently in **beta**. We're actively working on it and will be making regular updates — expect big changes and improvements until it gets to a stable release. Feel free to give your feedback and suggestions via the Issues tab.
+
 ## Running the app locally
 
 We highly recommend cloning the source code and running the app locally to get a feel for how it works.

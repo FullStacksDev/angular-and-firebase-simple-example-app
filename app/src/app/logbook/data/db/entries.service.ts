@@ -56,20 +56,24 @@ export class EntriesService {
     pageCursor: PageCursor,
     filters: EntriesFilters,
   ): Observable<EntryDoc[]> {
-    logger.debug('#getEntryDocs$ - inputs:', { userId, pageSize, pageCursor, filters });
+    logger.debug('getEntryDocs$ - inputs:', { userId, pageSize, pageCursor, filters });
 
     const q = this.#buildQuery(userId, pageSize, pageCursor, filters);
     return collectionData$(q).pipe(
-      tap((entries) => logger.debug('#getEntryDocs$ - entries from Firestore:', entries)),
+      tap((entries) => logger.debug('getEntryDocs$ - entries from Firestore:', entries)),
     );
   }
 
   createEntryDoc$(userId: string, data: NewOrUpdatedEntryInput): Observable<string> {
-    logger.debug('#createEntryDoc$ - inputs:', { userId, data });
+    logger.debug('createEntryDoc$ - inputs:', { userId, data });
+
+    // Make sure we never store `undefined` or empty string in the `category` field
+    const category =
+      typeof data.category === 'undefined' || data.category === '' ? null : data.category;
 
     const docData = {
       ...data,
-      category: data.category || null, // Make sure we never store `undefined` or empty string
+      category,
       userId,
       timestamp: serverTimestamp(),
     };
@@ -79,7 +83,7 @@ export class EntriesService {
   }
 
   updateEntryDoc$(entryId: string, data: NewOrUpdatedEntryInput): Observable<void> {
-    logger.debug('#updateEntryDoc$ - inputs:', { entryId, data });
+    logger.debug('updateEntryDoc$ - inputs:', { entryId, data });
 
     const docRef = doc(this.#collectionRef, entryId);
     const promise = updateDoc(docRef, data);
@@ -87,7 +91,7 @@ export class EntriesService {
   }
 
   deleteEntryDoc$(entryId: string): Observable<void> {
-    logger.debug('#deleteEntryDoc$ - entryId:', entryId);
+    logger.debug('deleteEntryDoc$ - entryId:', entryId);
 
     const docRef = doc(this.#collectionRef, entryId);
     const promise = deleteDoc(docRef);

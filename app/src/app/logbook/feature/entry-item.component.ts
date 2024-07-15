@@ -15,15 +15,15 @@ import { EntryFormComponent } from '../ui/entry-form.component';
     <mat-card>
       @if (!editing()) {
         <mat-card-header>
-          @if (entry().timestamp; as timestamp) {
-            <mat-card-subtitle>
-              <span>{{ timestamp.toDate() | date: "EEE dd MMM yyy 'at' hh:mm a" }}</span>
-              @if (entry().category; as category) {
-                <span class="px-2">•</span>
-                <span class="uppercase tracking-widest text-teal-700">{{ category }}</span>
-              }
-            </mat-card-subtitle>
-          }
+          @let timestamp = entry().timestamp;
+          <mat-card-subtitle>
+            <span>{{ timestamp.toDate() | date: "EEE dd MMM yyy 'at' hh:mm a" }}</span>
+            @let category = entry().category;
+            @if (category) {
+              <span class="px-2">•</span>
+              <span class="uppercase tracking-widest text-teal-700">{{ category }}</span>
+            }
+          </mat-card-subtitle>
           <mat-card-title class="py-2">
             {{ entry().title }}
           </mat-card-title>
@@ -31,10 +31,8 @@ import { EntryFormComponent } from '../ui/entry-form.component';
         <mat-card-content class="py-2 text-base">
           <p>{{ entry().text }}</p>
         </mat-card-content>
-        <mat-card-actions class="flex-row-reverse justify-between">
-          <button mat-button color="primary" (click)="toggleEditing()" [disabled]="processing()">
-            Edit
-          </button>
+        <mat-card-actions class="justify-between">
+          <button mat-button (click)="toggleEditing()" [disabled]="processing()">Edit</button>
           <button mat-button class="text-red-800" (click)="deleteEntry()" [disabled]="processing()">
             Delete
           </button>

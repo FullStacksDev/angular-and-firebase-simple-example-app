@@ -28,9 +28,9 @@ describe('EntryFormComponent', () => {
   });
 
   it('renders the form', () => {
-    MockRender(TestComponent);
+    const fixture = MockRender(TestComponent);
 
-    const el = ngMocks.find('form');
+    const el = ngMocks.find(fixture, 'form');
     expect(el).toBeTruthy();
   });
 });
