@@ -4,7 +4,7 @@ Part of the curated [**FullStacksDev Angular and Firebase tech stack**](https://
 
 This is a fairly simple **Logbook app** — to keep a single time-ordered log of text entries — focused on showcasing and learning the tech stack, built from the [base template](https://github.com/FullStacksDev/angular-and-firebase-template).
 
-You can read more about the [purpose and specs of the example apps](https://fullstacks.dev/example-apps) on our website.
+You can read more about the [purpose and specs of the example apps](https://fullstacks.dev/example-apps-and-patterns) on our website.
 
 > [!IMPORTANT]
 >
@@ -29,7 +29,7 @@ Use the index below and GitHub's UI to navigate and read the docs, with useful t
 
 The docs are designed to be **skimmable** and **a reference** to come back to. We recommend going through each, in order, but not necessarily trying to learn everything at once, as you can always come back and dig deeper (especially after getting into the actual code, and building your skills and understanding up).
 
-After a look at the overall architecture, we cover things from a _horizontal_ perspective, i.e. the layers of implementation that make up the whole app (rather than a _vertical_ perspective — feature by feature, which we do in the advanced example app).
+After a look at the overall architecture, we cover things from a _horizontal_ perspective, i.e. the layers of implementation that make up the whole app.
 
 ### Index
 
@@ -73,6 +73,6 @@ To make the information skimmable and easier to understand, you'll see the follo
 >
 > More severe gotchas and things to watch out for.
 
-## A note about the advanced example app
+## A note about the patterns example app
 
-Throughout the docs we reference [the advanced example app](https://github.com/FullStacksDev/angular-and-firebase-advanced-example-app). This is a more complex version of a logbook app that showcases advanced features and patterns. It's a perfect next step to take after you've understood and learnt from this simple example app.
+Throughout the docs we reference the patterns example app (coming soon). This is a dedicated place for showcasing even more in-depth capabilities and patterns to bring out the best in this tech stack. It's a perfect next step to take after you've understood and learnt from this simple example app.
