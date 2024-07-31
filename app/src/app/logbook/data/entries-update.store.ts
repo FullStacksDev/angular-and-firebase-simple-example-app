@@ -1,4 +1,4 @@
-import { Injectable, effect, inject } from '@angular/core';
+import { effect, inject } from '@angular/core';
 import { AuthStore } from '@app-shared/auth/data/auth.store';
 import { createLogger } from '@app-shared/logger';
 import { NewOrUpdatedEntryInput } from '@app-shared/models';
@@ -27,7 +27,9 @@ const initialState: EntriesUpdateState = {
 
 const logger = createLogger('EntriesUpdateStore');
 
-const _EntriesUpdateStore = signalStore(
+export type EntriesUpdateStore = InstanceType<typeof EntriesUpdateStore>;
+
+export const EntriesUpdateStore = signalStore(
   withState(initialState),
   withMethods((store) => {
     const authStore = inject(AuthStore);
@@ -123,6 +125,3 @@ const _EntriesUpdateStore = signalStore(
     },
   }),
 );
-
-@Injectable()
-export class EntriesUpdateStore extends _EntriesUpdateStore {}

@@ -11,7 +11,7 @@ describe('AuthStore', () => {
   it('should create', () => {
     MockInstance(AuthService, 'user$', of(null));
 
-    const store = ngMocks.get(AuthStore);
+    const store = ngMocks.get<AuthStore>(AuthStore);
     expect(store).toBeTruthy();
   });
 });

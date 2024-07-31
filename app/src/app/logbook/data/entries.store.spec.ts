@@ -13,7 +13,7 @@ describe('EntriesStore', () => {
     MockInstance(AuthStore, 'user$', of(null));
     MockInstance(EntriesService, 'getEntryDocs$', () => of([]));
 
-    const store = ngMocks.get(EntriesStore);
+    const store = ngMocks.get<EntriesStore>(EntriesStore);
     expect(store).toBeTruthy();
   });
 });

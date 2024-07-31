@@ -1,4 +1,4 @@
-import { Injectable, effect, inject } from '@angular/core';
+import { effect, inject } from '@angular/core';
 import { createLogger } from '@app-shared/logger';
 import { Config } from '@app-shared/models';
 import { tapResponse } from '@ngrx/operators';
@@ -48,7 +48,9 @@ const initialState: ConfigState = {
 
 const logger = createLogger('ConfigStore');
 
-const _ConfigStore = signalStore(
+export type ConfigStore = InstanceType<typeof ConfigStore>;
+
+export const ConfigStore = signalStore(
   withState<ConfigState>(initialState),
   withMethods((store) => {
     const configService = inject(ConfigService);
@@ -118,6 +120,3 @@ const _ConfigStore = signalStore(
     },
   }),
 );
-
-@Injectable()
-export class ConfigStore extends _ConfigStore {}
