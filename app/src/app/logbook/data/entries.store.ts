@@ -244,8 +244,8 @@ export const EntriesStore = signalStore(
         } else {
           patchState(store, {
             filters: { category },
-            _pageCursor: { startAt: null, endAt: null },
             currentPage: 1,
+            _pageCursor: { startAt: null, endAt: null },
           });
         }
       },
