@@ -9,7 +9,7 @@ describe('EntriesUpdateStore', () => {
   beforeEach(() => MockBuilder(EntriesUpdateStore, null).mock(AuthStore).mock(EntriesService));
 
   it('should create', () => {
-    const store = ngMocks.get(EntriesUpdateStore);
+    const store = ngMocks.get<EntriesUpdateStore>(EntriesUpdateStore);
     expect(store).toBeTruthy();
   });
 });

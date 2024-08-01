@@ -13,7 +13,7 @@ describe('ConfigStore', () => {
     const mockConfig: Config = { categories: ['test'] };
     MockInstance(ConfigService, 'getConfig$', () => of(mockConfig));
 
-    const store = ngMocks.get(ConfigStore);
+    const store = ngMocks.get<ConfigStore>(ConfigStore);
     expect(store).toBeTruthy();
     expect(store.status()).toEqual('connected');
     expect(store.categories()).toEqual(['test']);
@@ -23,7 +23,7 @@ describe('ConfigStore', () => {
     const mockConfig: Config = { categories: ['test'] };
     MockInstance(ConfigService, 'getConfig$', () => of(mockConfig));
 
-    const store = ngMocks.get(ConfigStore);
+    const store = ngMocks.get<ConfigStore>(ConfigStore);
     store.manageStream('disconnect');
     expect(store.status()).toEqual('disconnected');
     expect(store.categories()).toEqual([]);

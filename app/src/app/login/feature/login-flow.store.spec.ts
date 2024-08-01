@@ -9,7 +9,7 @@ describe('LoginFlowStore', () => {
   );
 
   it('should create', () => {
-    const store = ngMocks.get(LoginFlowStore);
+    const store = ngMocks.get<LoginFlowStore>(LoginFlowStore);
     expect(store).toBeTruthy();
   });
 });

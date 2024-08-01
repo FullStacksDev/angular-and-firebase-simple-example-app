@@ -1,6 +1,6 @@
-import { Injectable, computed, effect, inject } from '@angular/core';
+import { computed, effect, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { AuthStore } from '@app-shared/auth/data/auth.store';
+import { injectAuthStoreHelpers } from '@app-shared/auth/data/auth.store';
 import { createLogger } from '@app-shared/logger';
 import {
   EmptyEntriesFilters,
@@ -14,12 +14,18 @@ import {
   getState,
   patchState,
   signalStore,
+  type,
   withComputed,
   withHooks,
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { removeAllEntities, setAllEntities, withEntities } from '@ngrx/signals/entities';
+import {
+  entityConfig,
+  removeAllEntities,
+  setAllEntities,
+  withEntities,
+} from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
   EMPTY,
@@ -36,36 +42,41 @@ import { EntriesService } from './db/entries.service';
 
 const PAGE_SIZE = 2;
 
+const entriesEntityConfig = entityConfig({
+  entity: type<EntryDoc>(),
+  collection: '_entries', // Make it private
+});
+
 type DisconnectedState = {
   status: 'disconnected';
   currentPage: null;
-  pageCursor: EmptyPageCursor;
   filters: EmptyEntriesFilters;
   error: null;
+  _pageCursor: EmptyPageCursor;
 };
 
 type ConnectingState = {
   status: 'connecting';
   currentPage: 1;
-  pageCursor: EmptyPageCursor;
   filters: EmptyEntriesFilters;
   error: null;
+  _pageCursor: EmptyPageCursor;
 };
 
 type ConnectedState = {
   status: 'connected';
   currentPage: number;
-  pageCursor: PageCursor;
   filters: EntriesFilters;
   error: null;
+  _pageCursor: PageCursor;
 };
 
 type ErrorState = {
   status: 'error';
   currentPage: null;
-  pageCursor: EmptyPageCursor;
   filters: EmptyEntriesFilters;
   error: string;
+  _pageCursor: EmptyPageCursor;
 };
 
 type EntriesState = DisconnectedState | ConnectingState | ConnectedState | ErrorState;
@@ -73,32 +84,34 @@ type EntriesState = DisconnectedState | ConnectingState | ConnectedState | Error
 const initialState: EntriesState = {
   status: 'disconnected',
   currentPage: null,
-  pageCursor: { startAt: null, endAt: null },
   filters: {},
   error: null,
+  _pageCursor: { startAt: null, endAt: null },
 };
 
 const logger = createLogger('EntriesStore');
 
-const _EntriesStore = signalStore(
+export type EntriesStore = InstanceType<typeof EntriesStore>;
+
+export const EntriesStore = signalStore(
   withState<EntriesState>(initialState),
-  withEntities<EntryDoc>(),
+  withEntities(entriesEntityConfig),
   withComputed((store) => {
     return {
-      entries: computed(() => store.entities().slice(0, PAGE_SIZE)),
+      entries: computed(() => store._entriesEntities().slice(0, PAGE_SIZE)),
       hasPreviousPage: computed(() => {
         const currentPage = store.currentPage();
         return currentPage && currentPage > 1;
       }),
       hasNextPage: computed(() => {
         const currentPage = store.currentPage();
-        const allEntities = store.entities();
+        const allEntities = store._entriesEntities();
         return currentPage && allEntities.length > PAGE_SIZE;
       }),
     };
   }),
   withMethods((store) => {
-    const authStore = inject(AuthStore);
+    const { user$ } = injectAuthStoreHelpers();
     const entriesService = inject(EntriesService);
 
     // ---
@@ -108,38 +121,38 @@ const _EntriesStore = signalStore(
       const newState: DisconnectedState = {
         status: 'disconnected',
         currentPage: null,
-        pageCursor: { startAt: null, endAt: null },
+        _pageCursor: { startAt: null, endAt: null },
         filters: {},
         error: null,
       };
-      patchState(store, removeAllEntities(), newState);
+      patchState(store, removeAllEntities(entriesEntityConfig), newState);
     };
 
     const setConnecting = () => {
       const newState: ConnectingState = {
         status: 'connecting',
         currentPage: 1,
-        pageCursor: { startAt: null, endAt: null },
+        _pageCursor: { startAt: null, endAt: null },
         filters: {},
         error: null,
       };
-      patchState(store, removeAllEntities(), newState);
+      patchState(store, removeAllEntities(entriesEntityConfig), newState);
     };
 
     const setConnected = (entries: EntryDoc[]) => {
       const newState: Partial<ConnectedState> = { status: 'connected', error: null };
-      patchState(store, setAllEntities(entries), newState);
+      patchState(store, setAllEntities(entries, entriesEntityConfig), newState);
     };
 
     const setError = (error: string) => {
       const newState: ErrorState = {
         status: 'error',
         currentPage: null,
-        pageCursor: { startAt: null, endAt: null },
+        _pageCursor: { startAt: null, endAt: null },
         filters: {},
         error,
       };
-      patchState(store, removeAllEntities(), newState);
+      patchState(store, removeAllEntities(entriesEntityConfig), newState);
     };
 
     const connectedStream$ = (
@@ -173,10 +186,10 @@ const _EntriesStore = signalStore(
           tap((action) => (action === 'connect' ? setConnecting() : null)),
           switchMap((action) => {
             if (action === 'connect') {
-              return authStore.user$.pipe(
+              return user$.pipe(
                 map((user) => user?.id),
                 distinctUntilChanged(),
-                combineLatestWith(toObservable(store.pageCursor), toObservable(store.filters)),
+                combineLatestWith(toObservable(store._pageCursor), toObservable(store.filters)),
                 switchMap(([userId, pageCursor, filters]) => {
                   if (userId) {
                     // We fetch one extra to check if there's more for a next page
@@ -197,12 +210,12 @@ const _EntriesStore = signalStore(
         const currentPage = store.currentPage();
         const hasPreviousPage = store.hasPreviousPage();
         if (currentPage && hasPreviousPage) {
-          const entries = store.entities();
-          const lastEntry = entries[entries.length - 1];
+          const allEntities = store._entriesEntities();
+          const lastEntry = allEntities[allEntities.length - 1];
           if (lastEntry) {
             patchState(store, {
               currentPage: currentPage - 1,
-              pageCursor: { startAt: null, endAt: lastEntry.timestamp },
+              _pageCursor: { startAt: null, endAt: lastEntry.timestamp },
             });
           }
         }
@@ -211,12 +224,12 @@ const _EntriesStore = signalStore(
         const currentPage = store.currentPage();
         const hasNextPage = store.hasNextPage();
         if (currentPage && hasNextPage) {
-          const entries = store.entities();
-          const lastEntry = entries[entries.length - 1];
+          const allEntities = store._entriesEntities();
+          const lastEntry = allEntities[allEntities.length - 1];
           if (lastEntry) {
             patchState(store, {
               currentPage: currentPage + 1,
-              pageCursor: { startAt: lastEntry.timestamp, endAt: null },
+              _pageCursor: { startAt: lastEntry.timestamp, endAt: null },
             });
           }
         }
@@ -225,13 +238,13 @@ const _EntriesStore = signalStore(
         if (typeof category === 'undefined') {
           patchState(store, {
             currentPage: 1,
-            pageCursor: { startAt: null, endAt: null },
+            _pageCursor: { startAt: null, endAt: null },
             filters: {},
           });
         } else {
           patchState(store, {
             currentPage: 1,
-            pageCursor: { startAt: null, endAt: null },
+            _pageCursor: { startAt: null, endAt: null },
             filters: { category },
           });
         }
@@ -246,6 +259,3 @@ const _EntriesStore = signalStore(
     },
   }),
 );
-
-@Injectable()
-export class EntriesStore extends _EntriesStore {}
