@@ -42,11 +42,6 @@ import { EntriesService } from './db/entries.service';
 
 const PAGE_SIZE = 2;
 
-const entriesEntityConfig = entityConfig({
-  entity: type<EntryDoc>(),
-  collection: '_entries', // Make it private
-});
-
 type DisconnectedState = {
   status: 'disconnected';
   currentPage: null;
@@ -88,6 +83,11 @@ const initialState: EntriesState = {
   error: null,
   _pageCursor: { startAt: null, endAt: null },
 };
+
+const entriesEntityConfig = entityConfig({
+  entity: type<EntryDoc>(),
+  collection: '_entries', // Make it private
+});
 
 const logger = createLogger('EntriesStore');
 
