@@ -121,9 +121,9 @@ export const EntriesStore = signalStore(
       const newState: DisconnectedState = {
         status: 'disconnected',
         currentPage: null,
-        _pageCursor: { startAt: null, endAt: null },
         filters: {},
         error: null,
+        _pageCursor: { startAt: null, endAt: null },
       };
       patchState(store, removeAllEntities(entriesEntityConfig), newState);
     };
@@ -132,9 +132,9 @@ export const EntriesStore = signalStore(
       const newState: ConnectingState = {
         status: 'connecting',
         currentPage: 1,
-        _pageCursor: { startAt: null, endAt: null },
         filters: {},
         error: null,
+        _pageCursor: { startAt: null, endAt: null },
       };
       patchState(store, removeAllEntities(entriesEntityConfig), newState);
     };
@@ -148,9 +148,9 @@ export const EntriesStore = signalStore(
       const newState: ErrorState = {
         status: 'error',
         currentPage: null,
-        _pageCursor: { startAt: null, endAt: null },
         filters: {},
         error,
+        _pageCursor: { startAt: null, endAt: null },
       };
       patchState(store, removeAllEntities(entriesEntityConfig), newState);
     };
@@ -237,15 +237,15 @@ export const EntriesStore = signalStore(
       setCategoryFilter(category: string | null | undefined): void {
         if (typeof category === 'undefined') {
           patchState(store, {
+            filters: {},
             currentPage: 1,
             _pageCursor: { startAt: null, endAt: null },
-            filters: {},
           });
         } else {
           patchState(store, {
-            currentPage: 1,
-            _pageCursor: { startAt: null, endAt: null },
             filters: { category },
+            _pageCursor: { startAt: null, endAt: null },
+            currentPage: 1,
           });
         }
       },
