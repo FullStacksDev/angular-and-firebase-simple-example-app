@@ -7,6 +7,8 @@ import { EntriesStore } from '../data/entries.store';
 import { LogbookPageComponent } from './logbook-page.component';
 
 describe('LogbookPageComponent', () => {
+  // See: https://github.com/help-me-mom/ng-mocks/issues/10217
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   MockInstance.scope();
 
   beforeEach(() =>

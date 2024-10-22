@@ -5,6 +5,8 @@ import { ConfigStore } from './config.store';
 import { ConfigService } from './db/config.service';
 
 describe('ConfigStore', () => {
+  // See: https://github.com/help-me-mom/ng-mocks/issues/10217
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   MockInstance.scope();
 
   beforeEach(() => MockBuilder(ConfigStore, null).mock(ConfigService));

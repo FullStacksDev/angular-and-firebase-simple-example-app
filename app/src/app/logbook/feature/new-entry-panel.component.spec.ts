@@ -4,6 +4,8 @@ import { EntriesUpdateStore } from '../data/entries-update.store';
 import { NewEntryPanelComponent } from './new-entry-panel.component';
 
 describe('NewEntryPanelComponent', () => {
+  // See: https://github.com/help-me-mom/ng-mocks/issues/10217
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   MockInstance.scope();
 
   beforeEach(() => MockBuilder(NewEntryPanelComponent, [EntriesUpdateStore]));
