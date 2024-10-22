@@ -5,6 +5,8 @@ import { EntriesService } from './db/entries.service';
 import { EntriesStore } from './entries.store';
 
 describe('EntriesStore', () => {
+  // See: https://github.com/help-me-mom/ng-mocks/issues/10217
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   MockInstance.scope();
 
   beforeEach(() => MockBuilder(EntriesStore, null).mock(AuthStore).mock(EntriesService));
