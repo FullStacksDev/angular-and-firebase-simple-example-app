@@ -3,7 +3,6 @@ import { MockBuilder, MockRender, ngMocks } from 'ng-mocks';
 import { EntryFormComponent } from './entry-form.component';
 
 @Component({
-  standalone: true,
   imports: [EntryFormComponent],
   template: `<app-entry-form [processing]="processing" [categories]="categories" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,

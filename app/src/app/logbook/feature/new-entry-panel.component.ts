@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  input,
-  signal,
-  untracked,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, linkedSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,7 +9,6 @@ import { EntryFormComponent } from '../ui/entry-form.component';
 
 @Component({
   selector: 'app-new-entry-panel',
-  standalone: true,
   imports: [FormsModule, MatCardModule, EntryFormComponent, MatFormFieldModule, MatInputModule],
   template: `
     <section>
@@ -44,7 +35,6 @@ import { EntryFormComponent } from '../ui/entry-form.component';
             <mat-form-field class="w-full">
               <input
                 matInput
-                (click)="toggleExpanded()"
                 (focus)="toggleExpanded()"
                 class="w-full"
                 placeholder="Click here and start typing..."
@@ -66,14 +56,7 @@ export class NewEntryPanelComponent {
   readonly categories = input.required<string[]>();
   readonly onboarding = input<boolean>(false);
 
-  readonly expanded = signal(false);
-
-  constructor() {
-    // Sync the onboarding input flag with the expanded state
-    effect(() => {
-      untracked(() => this.expanded.set(this.onboarding()));
-    });
-  }
+  readonly expanded = linkedSignal(() => this.onboarding());
 
   toggleExpanded() {
     this.expanded.update((current) => !current);

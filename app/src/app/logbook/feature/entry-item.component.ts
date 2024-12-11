@@ -9,7 +9,6 @@ import { EntryFormComponent } from '../ui/entry-form.component';
 
 @Component({
   selector: 'app-entry-item',
-  standalone: true,
   imports: [DatePipe, MatCardModule, MatButtonModule, EntryFormComponent],
   template: `
     <mat-card>
@@ -17,7 +16,7 @@ import { EntryFormComponent } from '../ui/entry-form.component';
         <mat-card-header>
           @let timestamp = entry().timestamp;
           <mat-card-subtitle>
-            <span>{{ timestamp.toDate() | date: "EEE dd MMM yyy 'at' hh:mm a" }}</span>
+            <span>{{ timestamp?.toDate() | date: "EEE dd MMM yyy 'at' hh:mm a" }}</span>
             @let category = entry().category;
             @if (category) {
               <span class="px-2">•</span>

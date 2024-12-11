@@ -1,6 +1,6 @@
 import { computed, effect, inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { injectAuthStoreHelpers } from '@app-shared/auth/data/auth.store';
+import { AuthStore } from '@app-shared/auth/data/auth.store';
 import { createLogger } from '@app-shared/logger';
 import {
   EmptyEntriesFilters,
@@ -111,7 +111,7 @@ export const EntriesStore = signalStore(
     };
   }),
   withMethods((store) => {
-    const { user$ } = injectAuthStoreHelpers();
+    const authStore = inject(AuthStore);
     const entriesService = inject(EntriesService);
 
     // ---
@@ -186,7 +186,7 @@ export const EntriesStore = signalStore(
           tap((action) => (action === 'connect' ? setConnecting() : null)),
           switchMap((action) => {
             if (action === 'connect') {
-              return user$.pipe(
+              return authStore.user$.pipe(
                 map((user) => user?.id),
                 distinctUntilChanged(),
                 combineLatestWith(toObservable(store._pageCursor), toObservable(store.filters)),
