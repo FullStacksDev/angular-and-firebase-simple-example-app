@@ -22,7 +22,6 @@ const logger = createLogger('EntryFormComponent');
 
 @Component({
   selector: 'app-entry-form',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,

@@ -7,7 +7,6 @@ import { EntriesUpdateStore } from '../data/entries-update.store';
 import { EntryItemComponent } from './entry-item.component';
 
 @Component({
-  standalone: true,
   imports: [EntryItemComponent],
   template: `<app-entry-item [entry]="entry" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
