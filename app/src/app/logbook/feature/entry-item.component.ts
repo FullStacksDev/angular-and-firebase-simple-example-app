@@ -20,7 +20,7 @@ import { EntryFormComponent } from '../ui/entry-form.component';
             @let category = entry().category;
             @if (category) {
               <span class="px-2">•</span>
-              <span class="uppercase tracking-widest text-teal-700">{{ category }}</span>
+              <span class="tracking-widest text-teal-700 uppercase">{{ category }}</span>
             }
           </mat-card-subtitle>
           <mat-card-title class="py-2">
