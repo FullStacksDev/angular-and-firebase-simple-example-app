@@ -1,6 +1,6 @@
 > [!CAUTION]
 >
-> **Note for future Jits:** you put this particular part of the tech stack on ice in Feb 2025 ([ref](https://www.notion.so/jits/2025-On-Ice-18a2a607a9ea805090c3de552b57f19d?pvs=4)). You _did_ complete the migration to Angular v19 etc. ([ref](https://www.notion.so/jits/Angular-v19-etc-upgrades-1272a607a9ea80d48ca1e57c291a4836?pvs=4)) but didn't update the docs (because, why bother?). Just bear this mind if you ever resurrect this repo.
+> **Note for future Jits:** you put this particular part of the tech stack on ice in Feb 2025 ([ref](https://www.notion.so/jits/v2-On-Ice-Maintenance-1ab2a607a9ea807b92c3ff391ca91ac4?pvs=4)). You _did_ complete the migration to Angular v19 etc. ([ref](https://www.notion.so/jits/Angular-v19-etc-upgrades-1272a607a9ea80d48ca1e57c291a4836?pvs=4)) but didn't update the docs (because, why bother?). Just bear this mind if you ever resurrect this repo.
 
 # The [FullStacksDev](https://fullstacks.dev) Angular and Firebase simple example app
 
