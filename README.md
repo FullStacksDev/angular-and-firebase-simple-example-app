@@ -1,18 +1,10 @@
-> [!CAUTION]
->
-> **Note for future Jits:** you put this particular part of the tech stack on ice in Feb 2025 ([ref](https://www.notion.so/jits/v2-On-Ice-Maintenance-1ab2a607a9ea807b92c3ff391ca91ac4?pvs=4)). You _did_ complete the migration to Angular v19 etc. ([ref](https://www.notion.so/jits/Angular-v19-etc-upgrades-1272a607a9ea80d48ca1e57c291a4836?pvs=4)) but didn't update the docs (because, why bother?). Just bear this mind if you ever resurrect this repo.
-
 # The [FullStacksDev](https://fullstacks.dev) Angular and Firebase simple example app
 
 Part of the curated [**FullStacksDev Angular and Firebase tech stack**](https://fullstacks.dev/#angular-and-firebase). For solo devs and very small teams.
 
 This is a fairly simple **Logbook app** — to keep a single time-ordered log of text entries — focused on showcasing and learning the tech stack, built from the [base template](https://github.com/FullStacksDev/angular-and-firebase-template).
 
-You can read more about the [purpose and specs of the example apps](https://fullstacks.dev/example-apps-and-patterns) on our website.
-
-> [!IMPORTANT]
->
-> This is currently in **beta**. We're actively working on it and will be making regular updates — expect big changes and improvements until it gets to a stable release. Feel free to give your feedback and suggestions via the Issues tab.
+You can read more about the [purpose and specs of the example apps](TODO) on our website.
 
 ## Running the app locally
 
@@ -76,7 +68,3 @@ To make the information skimmable and easier to understand, you'll see the follo
 > [!CAUTION]
 >
 > More severe gotchas and things to watch out for.
-
-## A note about the patterns example app
-
-Throughout the docs we reference the patterns example app (coming soon). This is a dedicated place for showcasing even more in-depth capabilities and patterns to bring out the best in this tech stack. It's a perfect next step to take after you've understood and learnt from this simple example app.
