@@ -29,7 +29,7 @@ export class ConfigService {
         // We expect a Record<string, string> for the `categories` key.
         // Which we need to convert to a flat list.
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        const categories = Object.keys(data.categories || {});
+        const categories = Object.keys(data.categories ?? {});
 
         return {
           categories,
