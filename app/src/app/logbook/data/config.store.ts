@@ -1,4 +1,4 @@
-import { effect, inject } from '@angular/core';
+import { computed, effect, inject } from '@angular/core';
 import { createLogger } from '@app-shared/logger';
 import { Config } from '@app-shared/models';
 import { tapResponse } from '@ngrx/operators';
@@ -6,6 +6,7 @@ import {
   getState,
   patchState,
   signalStore,
+  withComputed,
   withHooks,
   withMethods,
   withState,
@@ -51,7 +52,14 @@ const logger = createLogger('ConfigStore');
 export type ConfigStore = InstanceType<typeof ConfigStore>;
 
 export const ConfigStore = signalStore(
-  withState<ConfigState>(initialState),
+  withState<{ state: ConfigState }>({ state: initialState }),
+  withComputed((store) => {
+    return {
+      status: computed(() => store.state.status()),
+      categories: computed(() => store.state.categories()),
+      error: computed(() => store.state.error()),
+    };
+  }),
   withMethods((store) => {
     const configService = inject(ConfigService);
 
@@ -60,22 +68,22 @@ export const ConfigStore = signalStore(
 
     const setConnecting = () => {
       const newState: ConnectingState = { status: 'connecting', categories: [], error: null };
-      patchState(store, newState);
+      patchState(store, { state: newState });
     };
 
     const setConnected = (config: Config) => {
       const newState: ConnectedState = { status: 'connected', ...config, error: null };
-      patchState(store, newState);
+      patchState(store, { state: newState });
     };
 
     const setDisconnected = () => {
       const newState: DisconnectedState = { status: 'disconnected', categories: [], error: null };
-      patchState(store, newState);
+      patchState(store, { state: newState });
     };
 
     const setError = (error: string) => {
       const newState: ErrorState = { status: 'error', categories: [], error };
-      patchState(store, newState);
+      patchState(store, { state: newState });
     };
 
     const connectedStream$ = () => {
